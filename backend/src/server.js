@@ -19,7 +19,7 @@ app.post('/cadastrar', async (req, res)=>{
         where: {
             email: req.body.email
         }
-    })
+    });
 
     var dados = req.body;
     dados.password = await bcrypt.hash(dados.password, 8);
@@ -30,19 +30,19 @@ app.post('/cadastrar', async (req, res)=>{
             return res.json({
                 erro: false,
                 mensagem: "Usuário cadastrado com sucesso"
-            })
+            });
         }).catch(()=>{
             return res.json({
                 erro: false,
                 mensagem: "Usuário não foi cadastrado com sucesso"
-            })
+            });
         });
     }
     else{
         return res.status(200).json({
             erro:false,
             mensagem: "Usuário já cadastrado"
-        })
+        });
     }
 
 });
@@ -54,27 +54,27 @@ app.post('/login', async(req, res) =>{
         where: {
             email: req.body.email
         }
-    })
+    });
 
     if(userFind == null){
         return res.json({
             erro:false,
             mensagem: "Email ou senha inválidos"
-        })
+        });
     } 
     else if(!(await bcrypt.compare(req.body.password, userFind.password))){
         return res.json({
             erro:false,
             mensagem: "Email ou senha inválidos"
-        })
+        });
     }else{
         return res.json({
             erro:false,
             mensagem: "Login realizado com sucesso"
-        })
+        });
     }
 });
 
 app.listen(3000, ()=>{
-    console.log("Servidor rodando na porta 3000: http://localhost:3000")
+    console.log("Servidor rodando na porta 3000: http://localhost:3000");
 })
