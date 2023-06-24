@@ -27,13 +27,22 @@ app.post('/cadastrar', async (req, res)=>{
     if (userFind === null){
         await User.create(dados)
         .then(() =>{
-            return res.send("Usuário cadastrado com sucesso")
+            return res.json({
+                erro: false,
+                mensagem: "Usuário cadastrado com sucesso"
+            })
         }).catch(()=>{
-            return res.send("Usuário não foi cadastrado com sucesso")
+            return res.json({
+                erro: false,
+                mensagem: "Usuário não foi cadastrado com sucesso"
+            })
         });
     }
     else{
-        return res.send("Usuário já cadastrado")
+        return res.status(200).json({
+            erro:false,
+            mensagem: "Usuário já cadastrado"
+        })
     }
 
 });
